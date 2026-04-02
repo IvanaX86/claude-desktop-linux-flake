@@ -5,7 +5,8 @@
   electron,
   p7zip,
   icoutils,
-  nodePackages,
+  buildNpmPackage,
+  jq,
   imagemagick,
   makeDesktopItem,
   makeWrapper,
@@ -14,6 +15,22 @@
 }: let
   pname = "claude-desktop";
   version = "0.14.10";
+   asar = buildNpmPackage {
+    pname = "@electron/asar";
+    version = "3.3.0";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@electron/asar/-/asar-3.3.0.tgz";
+      hash = "sha256-gqpHqoik3BdMkimMAPsSaNC42MpCVMbjEhTFnPi0vTA=";
+    };
+    npmDepsHash = "sha256-s7qke7VBAWFBzlp3lTpxOwdd3t75iIuKnVEGWvo/yNY=";
+    dontNpmBuild = true;
+    npmFlags = [ "--omit=dev" "--ignore-scripts" ];
+    nativeBuildInputs = [ jq ];
+    postPatch = ''
+      cp ${./asar-package-lock.json} package-lock.json
+      jq 'del(.scripts.prepare)' package.json > package.json.tmp && mv package.json.tmp package.json
+    '';
+  };
   srcExe = fetchurl {
     # NOTE: `?v=${version}` doesn't actually request a specific version. It's only being used here as a cache buster.
     # In the future, this should more properly query GCP storage to get a specific version.
@@ -28,7 +45,7 @@ in
 
     nativeBuildInputs = [
       p7zip
-      nodePackages.asar
+      asar
       makeWrapper
       imagemagick
       icoutils
