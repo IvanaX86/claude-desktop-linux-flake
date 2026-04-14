@@ -6,7 +6,6 @@
   p7zip,
   icoutils,
   buildNpmPackage,
-  jq,
   imagemagick,
   makeDesktopItem,
   makeWrapper,
@@ -25,7 +24,7 @@
     npmDepsHash = "sha256-s7qke7VBAWFBzlp3lTpxOwdd3t75iIuKnVEGWvo/yNY=";
     dontNpmBuild = true;
     npmFlags = [ "--omit=dev" "--ignore-scripts" ];
-    nativeBuildInputs = [ jq ];
+    nativeBuildInputs = [ ];
     postPatch = ''
       cp ${./asar-package-lock.json} package-lock.json
     '';
