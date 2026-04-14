@@ -20,7 +20,7 @@
     version = "3.3.0";
     src = fetchurl {
       url = "https://registry.npmjs.org/@electron/asar/-/asar-3.3.0.tgz";
-      hash = "sha256-gqpHqoik3BdMkimMAPsSaNC42MpCVMbjEhTFnPi0vTA=";
+      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB=";
     };
     npmDepsHash = "sha256-s7qke7VBAWFBzlp3lTpxOwdd3t75iIuKnVEGWvo/yNY=";
     dontNpmBuild = true;
