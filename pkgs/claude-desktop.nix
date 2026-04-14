@@ -28,7 +28,6 @@
     nativeBuildInputs = [ jq ];
     postPatch = ''
       cp ${./asar-package-lock.json} package-lock.json
-      "
     '';
   };
   srcExe = fetchurl {
