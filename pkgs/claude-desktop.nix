@@ -28,10 +28,6 @@
     nativeBuildInputs = [ jq ];
     postPatch = ''
       cp ${./asar-package-lock.json} package-lock.json
-      node -e "
-        const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-        delete pkg.scripts.prepare;
-        require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
       "
     '';
   };
