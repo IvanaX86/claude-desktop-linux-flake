@@ -28,7 +28,7 @@
     nativeBuildInputs = [ jq ];
     postPatch = ''
       cp ${./asar-package-lock.json} package-lock.json
-      jq 'del(.scripts.prepare)' package.json > package.json.tmp && mv package.json.tmp package.json
+      sed -i '/"prepare":/d' package.json
     '';
   };
   srcExe = fetchurl {
